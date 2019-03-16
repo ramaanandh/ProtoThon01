@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[ ]:
+
+
+
+
+
+# In[8]:
+
+
+import csv
+import uuid
+import time
+import tkinter as tk 
+from tkinter import *
+from datetime import datetime
+from tkinter import messagebox
+
+
+r = tk.Tk() 
+r.geometry("180x250")
+message='Database'
+a = tk.Message(r, text=message)
+a.grid(row=0,column=0)
+
+now=datetime.now()
+ts=datetime.timestamp(now)
+print(ts)
+
+
+csvstr=time.strftime("%H:%M:%S",time.localtime(int(ts)))
+tk.Label(r, text="Name").grid(row=2)
+
+e1 = tk.Entry(r)
+e1.grid(row=3, column=0)
+
+tk.Label(r, text="Mobile Number").grid(row=4)
+
+e2 = tk.Entry(r)
+e2.grid(row=5, column=0)
+
+tk.Label(r, text="Email").grid(row=6)
+
+e3 = tk.Entry(r)
+e3.grid(row=7, column=0)
+
+tk.Label(r, text="Institution").grid(row=8)
+
+e4 = tk.Entry(r)
+e4.grid(row=9, column=0)
+
+res=[]
+def rand():
+    res.append(e1.get())
+    res.append(e2.get())
+    res.append(e3.get())
+    res.append(e4.get())
+    res.append(csvstr)
+    res.append(uuid.uuid1())
+    res.append('')
+    return res
+    
+row = ['Name', ' Mobile Number', ' Email','Institution','Timestamp','UUID'] 
+def helloCallBack():
+    with open('abc.csv', 'w') as csvFile:
+        writer = csv.writer(csvFile)
+        writer.writerow(row)
+        writer.writerow(rand())
+    
+B = Button(r, text = "Enter", command = helloCallBack)
+B.place(x = 50,y = 220)    
+
+r.mainloop()
+
+
+# In[ ]:
+
+
+
+
